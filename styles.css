@@ -6,10 +6,7 @@ body {
     padding: 20px;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
-
 p {
-    font-family: 'Patrick Hand', cursive;
     text-align: center;
     font-family: "Giddyup Std", cursive;
     font-size: 500px;
