@@ -6,8 +6,6 @@ body {
     padding: 20px;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Riddle+Me+This&display=swap');
-
 p {
     font-size: 300px;
     text-align: center;
@@ -15,7 +13,7 @@ p {
     padding: 0;
 }
 #Monsurt{
-	font-family: 'Riddle Me This';
+	font-family: 'Times New Roman';
 	font-stretch: expanded;
 	color:green;
 }
