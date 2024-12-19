@@ -24,10 +24,21 @@ const answers = {
     23: 'Ha'
 };
 
+window.onload = function() {
+    for (let i = 1; i <= 23; i++) {
+        const savedAnswer = localStorage.getItem(`answer-${i}`);
+        if (savedAnswer) {
+            document.querySelector(`#answer-${i}`).value = savedAnswer;
+        }
+    }
+};
+
 function checkAnswer(riddleIndex) {
     const answerBox = document.querySelector(`#answer-${riddleIndex}`);
     const resultBox = document.querySelector(`#result-${riddleIndex}`);
     const userAnswer = answerBox.value.trim().toLowerCase();
+
+    localStorage.setItem(`answer-${riddleIndex}`, answerBox.value);
 
     if (userAnswer === answers[riddleIndex].toLowerCase()) {
         resultBox.textContent = "Correct!";
