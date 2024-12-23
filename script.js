@@ -1,54 +1,58 @@
-const answers = {
-    1: 'bribe',
-    2: 'Sleep',
-    3: 'Love',
-    4: 'computer',
-    5: 'library',
-    6: 'newspaper',
-    7: 'Friends',
-    8: 'hole',
-    9: 'Footsteps',
-    10: 'crowbar',
-    11: 'Vowels',
-    12: 'R',
-    13: 'clock',
-    14: 'map',
-    15: 'clock',
-    16: 'E',
-    17: 'Justice',
-    18: 'He lies still',
-    19: 'human brain',
-    20: 'knot',
-    21: 'Tomorrow',
-    22: 'maize',
-    23: 'Ha'
-};
+const riddles = [
+    { question: "If you are justice, please do not lie. What is the price for your blind eye?", answer: "bribe" },
+    { question: "When you lie, I strike. Death’s gentle friend is I. Who am I?", answer: "sleep" },
+    { question: "I cannot be bought, but I can be stolen in a glance. I am useless to one, but priceless to two. What am I?", answer: "love" },
+    // Add more riddles here
+];
 
-window.onload = function() {
-    for (let i = 1; i <= 23; i++) {
-        const savedAnswer = localStorage.getItem(`answer-${i}`);
-        if (savedAnswer) {
-            document.querySelector(`#answer-${i}`).value = savedAnswer;
-        }
-    }
-};
+let currentRiddleIndex = 0;
+let typingIndex = 0;
+let isTyping = false;
 
-function checkAnswer(riddleIndex) {
-    const answerBox = document.querySelector(`#answer-${riddleIndex}`);
-    const resultBox = document.querySelector(`#result-${riddleIndex}`);
-    const userAnswer = answerBox.value.trim().toLowerCase();
+const riddleDisplay = document.getElementById("riddle-display");
+const answerSpan = document.getElementById("answer");
 
-    localStorage.setItem(`answer-${riddleIndex}`, answerBox.value);
-
-    if (userAnswer === answers[riddleIndex].toLowerCase()) {
-        resultBox.textContent = "Correct!";
-        resultBox.style.color = "lime";
-        resultBox.style.display = "block";
-        resultBox.dataset.solved = "true";
+function typeRiddle() {
+    const riddle = riddles[currentRiddleIndex].question;
+    if (typingIndex < riddle.length) {
+        riddleDisplay.textContent += riddle[typingIndex];
+        typingIndex++;
+        setTimeout(typeRiddle, 50); // Adjust typing speed
     } else {
-        resultBox.textContent = "Incorrect! Try again.";
-        resultBox.style.color = "red";
-        resultBox.style.display = "block";
-        resultBox.dataset.solved = "false";
+        isTyping = false;
     }
 }
+
+function handleInput(event) {
+    const userAnswer = answerSpan.textContent.trim().toLowerCase();
+    const correctAnswer = riddles[currentRiddleIndex].answer.toLowerCase();
+
+    if (event.key === "Enter" && !isTyping) {
+        if (userAnswer === correctAnswer) {
+            currentRiddleIndex++;
+            if (currentRiddleIndex < riddles.length) {
+                answerSpan.textContent = "";
+                riddleDisplay.textContent = "";
+                typingIndex = 0;
+                isTyping = true;
+                typeRiddle();
+            } else {
+                riddleDisplay.textContent = "Congratulations, you've solved all the riddles!";
+                answerSpan.textContent = "";
+            }
+        } else {
+            riddleDisplay.textContent = "Incorrect! Try again.\n>> ";
+            answerSpan.textContent = "";
+        }
+    } else if (event.key === "Backspace") {
+        answerSpan.textContent = answerSpan.textContent.slice(0, -1);
+    } else if (/^[a-zA-Z0-9 ]$/.test(event.key)) {
+        answerSpan.textContent += event.key.toUpperCase();
+    }
+}
+
+document.addEventListener("keydown", handleInput);
+
+window.onload = () => {
+    typeRiddle();
+};
