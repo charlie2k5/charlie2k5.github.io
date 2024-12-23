@@ -1,40 +1,41 @@
 body {
-    background-color: black;
-    color: green;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    padding: 20px;
-    overflow: hidden;
+  font-family: "Verdana";
+  color: #00ff00;
+  background-color: #000000;
+  margin: 10px;
+  padding: 10px;
 }
 
-.riddle-display {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    white-space: pre-wrap;
-    line-height: 1.5;
+#riddle-container {
+  width: 80%;
+  text-align: left;
+  white-space: pre-wrap;
 }
 
-#input-area {
-    display: flex;
-    align-items: center;
-    font-size: 1.2em;
+#riddle-text {
+  font-size: 1rem;
+  margin-bottom: 6px;
+  text-transform: uppercase;
 }
 
-#prompt {
-    margin-right: 10px;
+#feedback {
+  font-size: 1rem;
+}
+
+#input-container {
+  font-size: 1rem;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
 }
 
 #user-input {
-    outline: none;
-    border: none;
-    background: none;
-    color: green;
-    font-family: inherit;
-    font-size: inherit;
-    white-space: pre;
-    caret-color: green;
-}
-
-#user-input:empty:before {
-    content: '\200B'; /* Invisible character to keep caret visible */
+  outline: none;
+  border: none;
+  color: #00ff00;
+  background-color: transparent;
+  font-size: 1rem;
+  padding-left: 5px;
+  text-transform: uppercase;
+  min-width: 200px;
 }
